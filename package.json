@@ -1,0 +1,69 @@
+{
+  "name": "futu-proto",
+  "version": "9.4.5409",
+  "private": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngolin/futu-proto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ngolin/futu-proto/issues"
+  },
+  "homepage": "https://github.com/ngolin/futu-proto",
+  "tsup": {
+    "format": [
+      "esm",
+      "cjs"
+    ],
+    "splitting": false,
+    "minify": true,
+    "clean": true,
+    "dts": true
+  },
+  "scripts": {
+    "_proto": "pbjs -t static-module -w es6 node_modules/futu-api/proto/*.proto | tee node_modules/futu-api/proto/index.js | pbts -o node_modules/futu-api/proto/index.d.ts -",
+    "_build": "tsup --entry.index node_modules/futu-api/proto/index.js",
+    "build": "npm run _proto && npm run _build && rsync -a node_modules/futu-api/proto/*.proto dist",
+    "publish": "npm publish --registry=https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "富途",
+    "futu",
+    "futunn",
+    "futu-api",
+    "futu-open",
+    "futu-opend",
+    "futu-open-api",
+    "node-futu-api"
+  ],
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "tsconfig.json",
+    "package-lock.json"
+  ],
+  "author": "Li Hongzhang",
+  "license": "ISC",
+  "description": "基于 futu-api/proto/*.proto 静态编译，提供完整的 TypeScript 类型支持，可用于 nodejs 和 Web 环境",
+  "dependencies": {
+    "bufferutil": "^4.0.9",
+    "long": "^5.3.2",
+    "protobufjs": "^7.5.4"
+  },
+  "devDependencies": {
+    "futu-api": "^9.4.5408",
+    "protobufjs-cli": "^1.1.3",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  }
+}
